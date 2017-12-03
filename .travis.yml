@@ -28,7 +28,7 @@ before_script:
   - sleep 10
 script:
   - gradle check
-  - gradle codeCoverageReport
+  - gradle jacocoTestReport
 notifications:
   email: false
 after_success:

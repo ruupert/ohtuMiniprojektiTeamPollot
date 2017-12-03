@@ -81,25 +81,6 @@ test {
     systemProperties System.getProperties()
 }
 
-task codeCoverageReport(type: JacocoReport) {
-    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
-
-    subprojects.each {
-        sourceSets it.sourceSets.main
-    }
-
-    reports {
-        xml.enabled true
-        xml.destination "${buildDir}/reports/jacoco/report.xml"
-        html.enabled false
-        csv.enabled false
-    }
-}
-
-codeCoverageReport.dependsOn {
-    subprojects*.test
-}
-
 jacocoTestReport {
 
     reports {
@@ -111,6 +92,6 @@ jacocoTestReport {
             fileTree(dir: it,
                     exclude: ['**/test/**'])
         })
-    }
 }
-check.dependsOn jacocoTestReport
+
+
