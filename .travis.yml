@@ -28,12 +28,11 @@ before_script:
   - sleep 10
 script:
   - gradle check
-  - whereis google-chrome-stable
-  - whereis chromedriver
+  - gradle codeCoverageReport
 notifications:
   email: false
 after_success:
   - "curl -o /tmp/travis-automerge https://raw.githubusercontent.com/cdown/travis-automerge/master/travis-automerge"
   - "chmod a+x /tmp/travis-automerge"
   - "BRANCHES_TO_MERGE_REGEX='^development' BRANCH_TO_MERGE_INTO=master GITHUB_REPO=ruupert/ohtuMiniprojektiTeamPollot /tmp/travis-automerge"
-  - ./gradlew jacocoTestReport coveralls
+  - bash <(curl -s https://codecov.io/bash)
