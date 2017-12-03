@@ -77,16 +77,34 @@ dependencies {
 }
 
 test {
+     jacoco {
+     append = false
+     destinationFile = file("$buildDir/results/jacoco/test.exec")
+    }
     testLogging.showStandardStreams = true
     systemProperties System.getProperties()
 }
 
-jacocoTestReport {
 
+cucumber {
+    formats = [ "pretty", "html:build/reports/cucumber", "json:build/results/cucumber/cucumber.json" ]
+    glueDirs = [ "src/cucmber/java" ]
+    featureDirs = [ "src/test/resources/tip" ]
+    jvmOptions {
+        def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter { it.name == "jacocoagent.jar" }.singleFile
+        jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/jacoco/cucumber.exec,append=false"]
+    }
+}
+
+jacocoTestReport {
+ 	executionData = files("$buildDir/jacoco/test.exec", "$buildDir/jacoco/cucumber.exec")
     reports {
         xml.enabled true
         html.enabled true
     }
+    dependsOn test
+    dependsOn "cucumber"
+    
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
             fileTree(dir: it,
@@ -95,4 +113,12 @@ jacocoTestReport {
     }
 }
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.8"
+    }
+}
 
