@@ -1,4 +1,3 @@
-
 buildscript {
     repositories {
 	mavenCentral()
@@ -9,7 +8,15 @@ buildscript {
 }
 plugins {
     id 'net.ltgt.apt' version '0.10'
+    id 'jacoco'
+    id 'com.github.kt3k.coveralls' version '2.6.3'
+}
 
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
 }
 
 apply plugin: 'java'
@@ -34,7 +41,11 @@ repositories {
     mavenCentral()
     maven { url 'https://repo.spring.io/snapshot' }
 }
-    
+
+tasks.coveralls {
+  dependsOn 'check'
+}
+
 mainClassName='tip.Main'
 
 dependencies {
