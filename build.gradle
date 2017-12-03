@@ -1,11 +1,15 @@
 buildscript {
     repositories {
 	mavenCentral()
+        jcenter()
     }
     dependencies {
     	classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+        classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.8"
     }
 }
+
+
 plugins {
     id 'net.ltgt.apt' version '0.10'
     id 'jacoco'
@@ -110,15 +114,6 @@ jacocoTestReport {
             fileTree(dir: it,
                     exclude: ['**/test/**'])
         })
-    }
-}
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.8"
     }
 }
 
