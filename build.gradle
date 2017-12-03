@@ -92,7 +92,7 @@ test {
 
 cucumber {
     formats = [ "pretty", "html:build/reports/cucumber", "json:build/results/cucumber/cucumber.json" ]
-    glueDirs = [ "src/cucmber/java" ]
+    glueDirs = [ "/src/test/java/tip" ]
     featureDirs = [ "src/test/resources/tip" ]
     jvmOptions {
         def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter { it.name == "jacocoagent.jar" }.singleFile
@@ -107,7 +107,7 @@ jacocoTestReport {
         html.enabled true
     }
     dependsOn test
-    dependsOn "cucumber"
+    dependsOn cucumber
     
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
