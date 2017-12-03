@@ -34,7 +34,12 @@ Odota kunnes Tomcat on saanut itsensä alustettua ja käyntiin, niin avaa selain
 
 
 
-Master: [![Build Status](https://travis-ci.org/ruupert/ohtuMiniprojektiTeamPollot.svg?branch=master)](https://travis-ci.org/ruupert/ohtuMiniprojektiTeamPollot)   ||  Development: [![Build Status](https://travis-ci.org/ruupert/ohtuMiniprojektiTeamPollot.svg?branch=development)](https://travis-ci.org/ruupert/ohtuMiniprojektiTeamPollot) 
+### Master
+[![Build Status](https://travis-ci.org/ruupert/ohtuMiniprojektiTeamPollot.svg?branch=master)](https://travis-ci.org/ruupert/ohtuMiniprojektiTeamPollot)
+[![Maintainability](https://api.codeclimate.com/v1/badges/2042f1ea1ea3812bfcdc/maintainability)](https://codeclimate.com/github/ruupert/ohtuMiniprojektiTeamPollot/maintainability)
+
+### Development
+[![Build Status](https://travis-ci.org/ruupert/ohtuMiniprojektiTeamPollot.svg?branch=development)](https://travis-ci.org/ruupert/ohtuMiniprojektiTeamPollot) 
 
 ### Definition of Done:
 - Ominaisuus on implementoitu ja integroitu sovellukseen.

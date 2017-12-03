@@ -12,20 +12,13 @@ plugins {
     id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled = true // coveralls plugin depends on xml format report
-        html.enabled = true
-    }
-}
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'application'
+apply plugin: 'jacoco'
 
-
-
-logging.captureStandardOutput LogLevel.QUIET
+//logging.captureStandardOutput LogLevel.QUIET
 
 project.ext {
     cucumberVersion = "1.2.5"
@@ -45,6 +38,7 @@ repositories {
 tasks.coveralls {
   dependsOn 'check'
 }
+
 
 mainClassName='tip.Main'
 
@@ -88,3 +82,16 @@ test {
     systemProperties System.getProperties()
 }
 
+jacocoTestReport {
+
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['**/test/**'])
+        })
+    }
+}
