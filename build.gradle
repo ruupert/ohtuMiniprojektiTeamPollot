@@ -92,6 +92,7 @@ jacocoTestReport {
             fileTree(dir: it,
                     exclude: ['**/test/**'])
         })
+    }
 }
 
 
