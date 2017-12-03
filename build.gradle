@@ -57,8 +57,7 @@ dependencies {
     compile("org.postgresql:postgresql:9.4.1212.jre7")
     
     compile("org.springframework.boot:spring-boot-devtools")
-	
-	compile group: 'org.jsoup', name: 'jsoup', version: '1.10.2'
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.10.2'
     
     compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: seleniumVersion
     compile group: 'org.seleniumhq.selenium', name: 'selenium-api', version: seleniumVersion
@@ -74,7 +73,7 @@ dependencies {
     testCompile "info.cukes:cucumber-java:" + cucumberVersion
     testCompile "info.cukes:cucumber-junit:" + cucumberVersion
     testCompile "info.cukes:cucumber-spring:" + cucumberVersion
-    testCompile "junit:junit:" + junitVersion 
+    testCompile "junit:junit:" + junitVersion
 }
 
 test {
