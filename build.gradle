@@ -17,11 +17,52 @@ plugins {
     id "com.github.samueltbrown.cucumber" version "0.9"
 }
 
-apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'application'
 apply plugin: 'jacoco'
 apply plugin: "com.github.samueltbrown.cucumber"
+apply plugin: "java"
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile "junit:junit-dep:4.11"
+    testCompile "info.cukes:cucumber-java:1.1.7"
+}
+
+testResultsDirName = "results/test"
+
+test {
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/results/jacoco/test.exec")
+    }
+}
+
+cucumber {
+    formats = [ "pretty", "html:build/reports/cucumber", "json:build/results/cucumber/cucumber.json" ]
+    glueDirs = [ "src/cucmber/java" ]
+    featureDirs = [ "src/cucumber/resources" ]
+    jvmOptions {
+        def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter { it.name == "jacocoagent.jar" }.singleFile
+        jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/results/jacoco/cucumber.exec,append=false"]
+    }
+}
+
+jacocoTestReport {
+    executionData = files("$buildDir/results/jacoco/test.exec", "$buildDir/results/jacoco/cucumber.exec")
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "$buildDir/reports/jacoco"
+    }
+    dependsOn test
+    dependsOn "cucumber"
+}
+
+
 
 //logging.captureStandardOutput LogLevel.QUIET
 
@@ -107,11 +148,5 @@ jacocoTestReport {
         html.enabled true
     }
     
-    afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it,
-                    exclude: ['**/test/**'])
-        })
-    }
 }
 
