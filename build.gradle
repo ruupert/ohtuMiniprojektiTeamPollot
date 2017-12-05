@@ -41,15 +41,9 @@ test {
     }
 }
 
-cucumber {
-    formats = [ "pretty", "html:build/reports/cucumber", "json:build/results/cucumber/cucumber.json" ]
-    glueDirs = [ "src/cucmber/java" ]
-    featureDirs = [ "src/cucumber/resources" ]
-    jvmOptions {
-        def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter { it.name == "jacocoagent.jar" }.singleFile
-        jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/results/jacoco/cucumber.exec,append=false"]
-    }
-}
+
+
+
 
 jacocoTestReport {
     executionData = files("$buildDir/results/jacoco/test.exec", "$buildDir/results/jacoco/cucumber.exec")
@@ -131,7 +125,6 @@ test {
 
 cucumber {
     formats = ['pretty','json:build/cucumber.json','junit:build/cucumber.xml']
-    glueDirs = ['src/test/java/tip']
     featureDirs = ['src/test/resources/tip']
     monochrome = false
     strict = false
@@ -141,6 +134,7 @@ cucumber {
       maxHeapSize = '512m'
     }    
 }
+
 
 jacocoTestReport {
     reports {
